@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.shortcuts import render
-from prettytable import PrettyTable
-import urllib2
+
+import urllib.request
 import pandas as pd
 from django.http import HttpResponse
 
@@ -21,17 +21,17 @@ class Stock:
 
     def updateValue(self):
         url = "http://hq.sinajs.cn/list=" + self.code
-        content = urllib2.urlopen(url).read()
+        content = urllib.request.urlopen(url).read()
         # content2 = content.decode('gbk')
-        x = content.split(",")
+        x = content.decode('utf-8', 'ignore').split(',')
         self.price = float(x[4])
         self.valueRMB = self.shares * self.priceRMB
-        self.name = x[1].decode('gbk').encode("utf-8")
-        self.tableString = self.code + " | " + self.name + " | " + str(self.price) + " | " + str(self.profit)
+        self.name = x[1].encode("utf-8")
+        #self.tableString = self.code + " | " + self.name + " | " + str(self.price) + " | " + str(self.profit)
         url = "http://hq.sinajs.cn/list=HKDCNY"
-        content = urllib2.urlopen(url).read()
+        content = urllib.request.urlopen(url).read()
         # content2 = content.decode('gbk')
-        x = content.split(",")
+        x = content.decode('utf-8', 'ignore').split(',')
         exchange = float(x[7])
         self.priceRMB = self.price * exchange
         self.valueRMB = self.priceRMB * self.shares
@@ -87,4 +87,4 @@ def runoob(request):
     #context = {}
     #context['hello'] = strr
     #return render(request, 'runoob.html', context)
-    return HttpResponse(print_web())
+    return HttpResponse(bytes(print_web(), encoding = "utf8"))

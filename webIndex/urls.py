@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from . import views
+from django.urls import include, re_path
 
 urlpatterns = [
-    url(r'^$', views.runoob)
+    re_path(r'^$', views.runoob)
 ]
