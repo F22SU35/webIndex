@@ -23,10 +23,10 @@ class Stock:
         url = "http://hq.sinajs.cn/list=" + self.code
         content = urllib.request.urlopen(url).read()
         # content2 = content.decode('gbk')
-        x = content.decode('utf-8', 'ignore').split(',')
+        x = content.decode('gbk').split(',')
         self.price = float(x[4])
         self.valueRMB = self.shares * self.priceRMB
-        self.name = x[1].encode("utf-8")
+        self.name = x[1]
         #self.tableString = self.code + " | " + self.name + " | " + str(self.price) + " | " + str(self.profit)
         url = "http://hq.sinajs.cn/list=HKDCNY"
         content = urllib.request.urlopen(url).read()
