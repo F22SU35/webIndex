@@ -20,7 +20,7 @@ class Stock:
         content = urllib.request.urlopen(url).read()
         # content2 = content.decode('gbk')
         x = content.decode('gbk').split(',')
-        self.price = round(float(x[4]), 2)
+        self.price = float(x[6])
         self.valueRMB = round(self.shares * self.priceRMB, 2)
         self.name = x[1]
         # self.tableString = self.code + " | " + self.name + " | " + str(self.price) + " | " + str(self.profit)
@@ -29,6 +29,7 @@ class Stock:
         # content2 = content.decode('gbk')
         x = content.decode('utf-8', 'ignore').split(',')
         exchange = float(x[7])
+        print(x)
         self.priceRMB = round(self.price * exchange, 2)
         self.valueRMB = round(self.priceRMB * self.shares, 2)
         self.profit = round(self.valueRMB - self.cost, 2)
