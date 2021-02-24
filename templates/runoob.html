@@ -11,11 +11,12 @@
   <tr>
     <th>代码</th>
     <th>名称</th>
-    <th>当前股价</th>
-    <th>当前股价RMB</th>
-    <th>成本股价RMB</th>
+    <th>当前价格</th>
+    <th>当前价格RMB</th>
+    <th>成本价格RMB</th>
     <th>数量</th>
-    <th>利润/元</th>
+    <th>市值RMB</th>
+    <th>利润RMB</th>
   </tr>
   {% for stock in stocks%}
   <tr>
@@ -25,9 +26,30 @@
     <td>{{ stock.priceRMB }}</td>
     <td>{{ stock.costPrice }}</td>
     <td>{{ stock.shares }}</td>
+    <td>{{ stock.valueRMB }}</td>
     <td>{{ stock.profit }}</td>
   </tr>
   {% endfor %}
+  <tr>
+    <td> Cash </td>
+    <td> </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>{{ cash }}</td>
+    <td> / </td>
+  </tr>
+    <tr>
+    <td> 总权益 </td>
+    <td> </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>{{ equity }}</td>
+    <td>{{ profit }} </td>
+  </tr>
 </table>
 
 

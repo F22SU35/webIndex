@@ -7,7 +7,7 @@ class Stock:
         self.code = code
         self.shares = shares
         self.costPrice = costPrice
-        self.value = self.shares * self.costPrice
+        self.valueRMB = self.shares * self.costPrice * 1
         self.cost = self.shares * self.costPrice
         self.profit = 0
         self.name = ""
@@ -29,7 +29,6 @@ class Stock:
         # content2 = content.decode('gbk')
         x = content.decode('utf-8', 'ignore').split(',')
         exchange = float(x[7])
-        print(x)
         self.priceRMB = round(self.price * exchange, 2)
         self.valueRMB = round(self.priceRMB * self.shares, 2)
         self.profit = round(self.valueRMB - self.cost, 2)
@@ -45,11 +44,12 @@ class ShareHolder:
 
 
 class Position:
-    def __init__(self, cash):
+    def __init__(self, SHARE_HOLDER_INIT, cash_floap):
         self.stockList = []
-        columns = ['代码', '名称', '当前股价', '当前股价RMB', '成本股价RMB', '数量', '利润/元']
+        columns = ['代码', '名称', '当前股价', '当前股价RMB', '成本股价RMB', '数量', '市值/元', '利润/元']
         self.df = pd.DataFrame(columns=columns)
-        self.cash = cash
+        self.cash = round(SHARE_HOLDER_INIT + cash_floap, 2)
+        self.equity = 0
         self.profit = 0
 
     def buy_stock(self, name, shares, price):
@@ -62,14 +62,15 @@ class Position:
                               '当前股价RMB': [stock.priceRMB],
                               '成本股价RMB': [stock.costPrice],
                               '数量': [stock.shares],
+                              '市值/元': [stock.valueRMB],
                               '利润/元': [stock.profit]}),
                 ignore_index=True)
-        self.cash = self.cash - shares * price
 
     def update(self):
         for stock in self.stockList:
             stock.updateValue()
             self.profit += stock.profit
+            self.equity += stock.valueRMB
             self.df.loc[self.df['代码'] == stock.code] =\
                 pd.DataFrame({'代码': [stock.code],
                               '名称': [stock.name],
@@ -77,4 +78,14 @@ class Position:
                               '当前股价RMB': [stock.priceRMB],
                               '成本股价RMB': [stock.costPrice],
                               '数量': [stock.shares],
+                              '市值/元': [stock.valueRMB],
                               '利润/元': [stock.profit]})
+        self.equity += self.cash
+
+
+def get_cash_floap():
+    csv_file = "webIndex\\record.csv"
+    csv_data = pd.read_csv(csv_file, encoding='gbk')
+    csv_df = pd.DataFrame(csv_data)
+    cash_floap = csv_df["金额/元"].sum()
+    return cash_floap
