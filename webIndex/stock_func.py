@@ -41,6 +41,8 @@ class ShareHolder:
         self.position = 0
         self.profit = self.position - self.INITCAPITAL
         self.percent = self.profit / self.INITCAPITAL
+        self.cash_divided = 0
+        self.profit_total = 0
 
 
 class Position:
@@ -84,8 +86,11 @@ class Position:
 
 
 def get_cash_floap():
-    csv_file = "webIndex\\record.csv"
+    csv_file = "webIndex/record.csv"
     csv_data = pd.read_csv(csv_file, encoding='gbk')
     csv_df = pd.DataFrame(csv_data)
     cash_floap = csv_df["金额/元"].sum()
-    return cash_floap
+    cd_df = csv_df[(csv_df['代码'] == 'cd')]
+    cash_divided_total = - cd_df["金额/元"].sum()
+
+    return cash_floap, cash_divided_total

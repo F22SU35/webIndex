@@ -41,14 +41,14 @@
     <td> / </td>
   </tr>
     <tr>
-    <td> 总权益 </td>
+    <td> 总和 </td>
     <td> </td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td>{{ equity }}</td>
-    <td>{{ profit }} </td>
+    <td>{{ position_profit }} </td>
   </tr>
 </table>
 
@@ -59,13 +59,18 @@
   <tr>
     <th>ID</th>
     <th>股本</th>
-    <th>利润</th>
+    <th>当前盈利</th>
+    <th>历史分红</th>
+    <th>总盈利</th>
+
   </tr>
   {% for shd in share_holders %}
   <tr>
     <td>{{ shd.name }}</td>
     <td>{{ shd.INITCAPITAL }}</td>
     <td>{{ shd.profit }}</td>
+    <td>{{ shd.cash_divided }}</td>
+    <td>{{ shd.profit_total }}</td>
   </tr>
   {% endfor %}
 </table>
