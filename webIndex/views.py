@@ -27,8 +27,8 @@ def runoob(request):
     position.update()
 
     for s in sList:
-        s.profit = round((position.equity - SHARE_HOLDER_INIT) / SHARE_HOLDER_INIT * s.INITCAPITAL, 2)
         s.cash_divided = round(cash_divided / SHARE_HOLDER_INIT * s.INITCAPITAL, 2)
+        s.profit = round((position.equity - SHARE_HOLDER_INIT) / SHARE_HOLDER_INIT * s.INITCAPITAL, 2)
         s.profit_total = round(s.profit + s.cash_divided, 2)
 
     percent = round((position.equity - SHARE_HOLDER_INIT + cash_divided) / SHARE_HOLDER_INIT * 100, 2)

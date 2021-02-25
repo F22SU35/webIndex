@@ -16,6 +16,7 @@
     <th>成本价格RMB</th>
     <th>数量</th>
     <th>市值RMB</th>
+    <th>成本RMB</th>
     <th>利润RMB</th>
   </tr>
   {% for stock in stocks%}
@@ -27,6 +28,7 @@
     <td>{{ stock.costPrice }}</td>
     <td>{{ stock.shares }}</td>
     <td>{{ stock.valueRMB }}</td>
+    <td>{{ stock.cost }}</td>
     <td>{{ stock.profit }}</td>
   </tr>
   {% endfor %}
@@ -39,6 +41,7 @@
     <td></td>
     <td>{{ cash }}</td>
     <td> / </td>
+    <td> / </td>
   </tr>
     <tr>
     <td> 总和 </td>
@@ -48,6 +51,7 @@
     <td></td>
     <td></td>
     <td>{{ equity }}</td>
+    <td> / </td>
     <td>{{ position_profit }} </td>
   </tr>
 </table>
